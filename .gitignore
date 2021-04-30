@@ -132,15 +132,18 @@ dmypy.json
 .DS_Store
 
 #Python Output
-crime_data_clean.csv
-elementary_school_data.csv
-tree_data_clean.csv
-restaurants.csv
-high_school_data.csv
-brownfields_data_clean.csv
-middle_school_data.csv
-stations_data_clean.csv
-clean_elementary_schools.csv
-clean_high_schools.csv
-clean_middle_schools.csv
+python_files/output/crime_data_clean.csv
+python_files/output/elementary_school_data.csv
+python_files/output/tree_data_clean.csv
+python_files/output/restaurants.csv
+python_files/output/high_school_data.csv
+python_files/output/brownfields_data_clean.csv
+python_files/output/middle_school_data.csv
+python_files/output/stations_data_clean.csv
+python_files/output/clean_elementary_schools.csv
+python_files/output/clean_high_schools.csv
+python_files/output/clean_middle_schools.csv
+
+#Checkpoints
+
 
