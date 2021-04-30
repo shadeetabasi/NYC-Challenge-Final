@@ -127,3 +127,20 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#DS_Store
+.DS_Store
+
+#Python Output
+crime_data_clean.csv
+elementary_school_data.csv
+tree_data_clean.csv
+restaurants.csv
+high_school_data.csv
+brownfields_data_clean.csv
+middle_school_data.csv
+stations_data_clean.csv
+clean_elementary_schools.csv
+clean_high_schools.csv
+clean_middle_schools.csv
+
