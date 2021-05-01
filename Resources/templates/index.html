@@ -20,7 +20,7 @@
                 <select id="proptype" name="proptype">
                     <option value="starter"></option>
                     <option value="condo">Condo</option>
-                    <option value="coop">Coop</option>
+                    <option value="co-op">Coop</option>
                     <option value="townhouse">Townhouse</option>
                     <option value="house">House</option>
                 </select> 
@@ -29,29 +29,27 @@
                 <input type="text" id="zip" name="zip"><br><br>
                 
                 <label id = bedroom for="bdcount">Bedroom Count</label>
-                <select id="bdcount" name="bdcount">
-                    <option value="starter"></option>
-                    <option value="one">1</option>
-                    <option value="two">2</option>
-                    <option value="three">3</option>
-                    <option value="four">4</option>
-                    <option value="five">5</option>
-                    <option value="six">6</option>
-                    <option value="seven">7</option>
-                    <option value="eight">8</option>
-                    <option value="nine">9</option>
-                    <option value="ten">10</option>
+                <select id="bdcount" name="bdcount" selected={}>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                    <option value=9>9</option>
+                    <option value=10>10</option>
                 </select>
 
                 <label id = bathroom for="bacount">Bathroom Count</label>
-                <select id="bacount" name="bacount">
-                    <option value="starter"></option>
-                    <option value="one">1</option>
-                    <option value="two">2</option>
-                    <option value="three">3</option>
-                    <option value="four">4</option>
-                    <option value="five">5</option>
-                    <option value="six">6</option>
+                <select id="bacount" name="bacount" selected={{bathrooms}}>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
                 </select>
                 <br><br>  
             </form>
