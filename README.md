@@ -6,7 +6,16 @@
 
 # EXTRACT
 * Technologies Used: 
-  * Pandas, sql-alchemy, numpy, sklearn.preprocessing, oneHotEncoder,
+  * Back End: Pandas, sql-alchemy, numpy, sklearn.preprocessing [oneHotEncoder], scipy.stats, geopy[distance], geopy.geocoders[Nominatim], geopy.exc[GeoCoderTimedOut], geopy.extra.rate_limiter[RateLimiter], geopandas, plotly_express, tqdm, tqdm.pandas(), sklearn.neighbors, tqd
 
 
 Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
+
+
+
+import plotly_express as px
+from tqdm import tqdm
+from tqdm._tqdm_notebook import tqdm_notebook
+from datetime import datetime
+tqdm.pandas()
+import sklearn.neighbors
