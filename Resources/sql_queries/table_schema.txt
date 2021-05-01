@@ -127,8 +127,8 @@ CREATE TABLE real_estate(
 	,compass_property_type VARCHAR
 	,MLS_Property_Subtype VARCHAR
 	,MLS_Property_Type VARCHAR
-	,listed_price money
-	,sold_price money
+	,listed_price int
+	,sold_price int
 	,sold_date date
 	,zipcode int
 	,lat dec(6,4)

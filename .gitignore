@@ -1,4 +1,5 @@
 # Byte-compiled / optimized / DLL files
+.env
 __pycache__/
 *.py[cod]
 *$py.class
@@ -143,6 +144,13 @@ python_files/output/stations_data_clean.csv
 python_files/output/clean_elementary_schools.csv
 python_files/output/clean_high_schools.csv
 python_files/output/clean_middle_schools.csv
+python_files/output/walkscore_data_clean.csv
+python_files/output/merged_data.csv
+python_files/output/merged.csv
+python_files/output/merged_re.csv
+python_files/output/final_elementary.csv
+python_files/output/final_high.csv
+python_files/output/final_middle.csv
 
 #Checkpoints
 
