@@ -20,6 +20,9 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
   * Merge duplicative column values with slightly different naming conventions with ``.replace({})`` 
   * Drop all rows where zipcode column contained NaN values
   ``df = df.dropna(subset=['zipcode'])``
+  * Datatype Conversion
+  ``df['column_name'] = df['column_name'].astype('')``
+   
 
 ### NYC Brownfields Data Set
   * Use ``str.contains()`` method to remove all records that were outside New York City (original dataset was for NY State brownfield records)
