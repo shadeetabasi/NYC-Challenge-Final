@@ -41,16 +41,16 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
 * Convert complaint_date to datetime
 ``df.complaint_date = pd.to_datetime(df.complaint_date, format='%m/%d/%Y')``
 * Create a column to denote if the danger level is low or high
-  <code> df["danger_level"] = ""
-  df.loc[df["complaint_desc"] == 'sex crimes', "danger_level"] = 'high'
-  df.loc[df["complaint_desc"] == 'rape', "danger_level"] = 'high'
-  df.loc[df["complaint_desc"] == 'dangerous weapons', "danger_level"] = 'high'
-  df.loc[df["complaint_desc"] == 'felony sex crimes', "danger_level"] = 'high'
-  df.loc[df["complaint_desc"] == 'burglary', "danger_level"] = 'high'
-  df.loc[df["complaint_desc"] == 'robbery', "danger_level"] = 'high'
-  df.loc[df["complaint_desc"] == 'arson', "danger_level"] = 'high'
-  df['danger_level'] = df['danger_level'].replace('', np.nan, regex=True)
-  df['danger_level'] = df['danger_level'].fillna('low') </code>
+  <code> df["danger_level"] = "" <br>
+  df.loc[df["complaint_desc"] == 'sex crimes', "danger_level"] = 'high' <br>
+  df.loc[df["complaint_desc"] == 'rape', "danger_level"] = 'high' <br>
+  df.loc[df["complaint_desc"] == 'dangerous weapons', "danger_level"] = 'high' <br>
+  df.loc[df["complaint_desc"] == 'felony sex crimes', "danger_level"] = 'high' <br>
+  df.loc[df["complaint_desc"] == 'burglary', "danger_level"] = 'high' <br>
+  df.loc[df["complaint_desc"] == 'robbery', "danger_level"] = 'high' <br>
+  df.loc[df["complaint_desc"] == 'arson', "danger_level"] = 'high' <br>
+  df['danger_level'] = df['danger_level'].replace('', np.nan, regex=True) <br>
+  df['danger_level'] = df['danger_level'].fillna('low') </code> 
 
 * Generate binary values using ``pd.get_dummies`` on category of crime (violation, misdemeanor and felony) and on newly created feature - whether the crime is defined as violent and therefore the danger level is higher:
 
