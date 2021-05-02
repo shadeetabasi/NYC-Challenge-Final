@@ -32,9 +32,9 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
   * Generate binary values using ``pd.get_dummies`` on health status:
      * Potential Threat
      * Completed - Maintenance Required - Continued Threat
-     *  Completed - Clean - No Further Action
-     *  Active - Significant Threat
-     *  Active - Mild Threat
+     * Completed - Clean - No Further Action
+     * Active - Significant Threat
+     * Active - Mild Threat
 
 ### NYC Crime Data Set
 * Remove all complaint that were records before 2020
@@ -45,7 +45,10 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
 ``df.complaint_date = pd.to_datetime(df.complaint_date, format='%m/%d/%Y')``
 * Create a column to denote if the danger level is low or high
   ```
+  # Create empty column
   df["danger_level"] = ""
+  
+  # Assign specific complaint descriptions as having a higher danger level based on the gravity of the crime
   df.loc[df["complaint_desc"] == 'sex crimes', "danger_level"] = 'high' 
   df.loc[df["complaint_desc"] == 'rape', "danger_level"] = 'high' 
   df.loc[df["complaint_desc"] == 'dangerous weapons', "danger_level"] = 'high' 
@@ -53,7 +56,9 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
   df.loc[df["complaint_desc"] == 'burglary', "danger_level"] = 'high' 
   df.loc[df["complaint_desc"] == 'robbery', "danger_level"] = 'high' 
   df.loc[df["complaint_desc"] == 'arson', "danger_level"] = 'high' 
-  df['danger_level'] = df['danger_level'].replace('', np.nan, regex=True) 
+  
+  # Fill all empty values in the newly created 'danger_level' column with NaNs and use fillna() to create high/low dichotomy 
+  df['danger_level'] = df['danger_level'].replace('', np.nan, regex=True)
   df['danger_level'] = df['danger_level'].fillna('low')
   ```
 
