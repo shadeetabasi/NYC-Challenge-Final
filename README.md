@@ -66,17 +66,17 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
 
 ### NYC School Rankings (Elementary, Middle, High) Datasets
 * Drop all rows where county is not the Bronx, Brooklyn, Richmond, Queens and/or New York County
+ ```
+ # Filter out any counties outside NYC 5 Boroughs
+ elem['county'].value_counts()
+ elem = elem[elem['county'].str.contains("Richmond County|New York|Brooklyn|Kings County|Queens|Bronx")]
 
-```
-# Filter out any counties outside NYC 5 Boroughs
-elem['county'].value_counts()
-elem = elem[elem['county'].str.contains("Richmond County|New York|Brooklyn|Kings County|Queens|Bronx")]
+ # Reclassify inaccurate column values by replacing School District assignment with county that district is located in
+ elem.loc[elem['county'].str.contains('7|8|9|10|11|12'), 'county'] = 'Bronx County'
+ elem.loc[elem['county'].str.contains('13|14|17|21|22|24|27'), 'county'] = 'Kings County'
+ elem.loc[elem['county'].str.contains('3|4|5|6'), 'county'] = 'New York County'
+ ```
 
-# Reclassify inaccurate column values by replacing School District assignment with county that district is located in
-elem.loc[elem['county'].str.contains('7|8|9|10|11|12'), 'county'] = 'Bronx County'
-elem.loc[elem['county'].str.contains('13|14|17|21|22|24|27'), 'county'] = 'Kings County'
-elem.loc[elem['county'].str.contains('3|4|5|6'), 'county'] = 'New York County'
-```
 * Create a new feature and corresponding classification for Generating Binary Values for School Rankings relative to the State rankings
   * ``Use pd.cut( )`` method to bin School Rankings into Top 25th, 50th Percentile, 75th Percentile and Bottom 25th Percentile
   * Use``pd.get_dummies`` on the newly created feature (binned school rankings)
