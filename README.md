@@ -1,6 +1,6 @@
 # Machine Learning - Real Estate Valuations
 
-<img src="Subway.gif" width="500" height="250"/> | <img src="Police.gif" width="500" height="250"/>
+<img src="Subway.gif" width="400" height="250"/> | <img src="Police.gif" width="400" height="250"/>
 
 # OVERVIEW
 
