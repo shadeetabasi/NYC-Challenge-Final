@@ -1,6 +1,7 @@
 # Machine Learning - Real Estate Valuations
 
-![Subway gif](Subway.gif, width="250" height="250")| ![Police gif](Police.gif, width="250" height="250" ) 
+<img src="Subway.gif" width="250" height="250"/> | <img src="Police.gif" width="250" height="250"/>
+![Subway gif](Subway.gif)| ![Police gif](Police.gif) 
 # OVERVIEW
 
 * The datasets created and utilized for our analysis and visualizations took data on New York City (crime, education, environment, socio-economic, subway-access) filtered by zipcode. After initial exploratory analysis and cleaning, we decided to move foward with a Linear Regression and Random Forest Machine Learning Models.
