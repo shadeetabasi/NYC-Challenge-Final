@@ -27,11 +27,11 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
    ``df['zipcode'] = df['zipcode'].str[:5]``
   * Group status of the clean-up site using ``str.replace()`` method - data has different rating scale depending on funding of the clean up project so some descriptions could be merged.
   * Generate binary values using ``pd.get_dummies`` on health status:
-   * Potential Threat
-   *  Completed - Maintenance Required - Continued Threat
-   *  Completed - Clean - No Further Action
-   *  Active - Significant Threat
-   *  Active - Mild Threat
+     * Potential Threat
+     * Completed - Maintenance Required - Continued Threat
+     *  Completed - Clean - No Further Action
+     *  Active - Significant Threat
+     *  Active - Mild Threat
 
 ### NYC Crime Data Set
 * Remove all complaint that were records before 2020
@@ -41,7 +41,7 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
 * Convert complaint_date to datetime
 ``df.complaint_date = pd.to_datetime(df.complaint_date, format='%m/%d/%Y')``
 * Create a column to denote if the danger level is low or high
-  ``df["danger_level"] = ""
+  ``df["danger_level"] = ""``
   ``df.loc[df["complaint_desc"] == 'sex crimes', "danger_level"] = 'high'``
   ``df.loc[df["complaint_desc"] == 'rape', "danger_level"] = 'high'``
   ``df.loc[df["complaint_desc"] == 'dangerous weapons', "danger_level"] = 'high'``
