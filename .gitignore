@@ -151,6 +151,8 @@ python_files/output/merged_re.csv
 python_files/output/final_elementary.csv
 python_files/output/final_high.csv
 python_files/output/final_middle.csv
+python_files/output/final_middle.csv
+python_files/output/re_data_clean.csv
 
 #Checkpoints
 

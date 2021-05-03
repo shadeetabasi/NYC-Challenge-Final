@@ -118,7 +118,6 @@ CREATE TABLE brownfields(
 CREATE TABLE real_estate(
 	"index" int primary key
 	,address VARCHAR 
-	,building_name VARCHAR
 	,neighborhood VARCHAR
 	,borough VARCHAR
 	,bed int
@@ -164,3 +163,71 @@ CREATE TABLE walk (
 	,walkable_false int
 	,walkable_true int
 );
+
+---------------------------------------------------------------------------------------------------
+CREATE TABLE real_estate_final(
+	"index" int primary key
+	,address VARCHAR 
+	,neighborhood VARCHAR
+	,borough VARCHAR
+	,bed int
+	,bath float
+	,days_on_market int
+	,compass_property_type VARCHAR
+	,MLS_Property_Subtype VARCHAR
+	,MLS_Property_Type VARCHAR
+	,listed_price int
+	,sold_price int
+	,sold_date date
+	,zipcode int
+	,lat dec(6,4)
+	,long dec(6,4)
+	,year_built date
+	,dom_ranges VARCHAR
+	,dom_tier int
+	,dom_lowerbound int	
+	,dom_iqr int
+	,dom_upperbound int
+	,dom_extended int
+	,dom_outlier int
+	,walkable_false int
+	,walkable_true int
+	,health_level_dead int
+	,health_level_fair int
+	,health_level_good int
+	,health_level_poor int
+	,ada_access_no int
+	,ada_access_yes int
+	,ada_access_partial int
+	,type_is_active_cleanup_mild_threat int
+	,type_is_active_significant_threat int
+	,type_is_completed_clean int
+	,type_is_maintain_continued_threat int
+	,type_is_potential_threat int
+	,type_is_felony int
+	,type_is_violation int
+	,type_is_misdemeanor int
+	,danger_level_is_high int
+	,danger_level_is_low int
+	,lunch_eligibity_high_False_elem int
+	,lunch_eligibity_high_True_elem int
+	,type_is_Top_25th_Percentile_elem int
+	,type_is_50th_Percentile_elem int
+	,type_is_75th_Percentile_elem int
+	,type_is_Bottom_25th_Percentile_elem int
+	,lunch_eligibity_high_False_middle int
+	,lunch_eligibity_high_True_middle int
+	,type_is_Top_25th_Percentile_middle int
+	,type_is_50th_Percentile_middle int
+	,type_is_75th_Percentile_middle int
+	,type_is_Bottom_25th_Percentile_middle int
+	,lunch_eligibity_high_False_high int
+	,lunch_eligibity_high_True_high int
+	,type_is_Top_25th_Percentile_high int
+	,type_is_50th_Percentile_high int
+	,type_is_75th_Percentile_high int
+	,type_is_Bottom_25th_Percentile_high int
+);
+
+\copy real_estate_final FROM 'C:/Users/bxprd/Data Analytics Bootcamp/Git_Repos/NYC-Challenge-Final/python_files/output/merged_re.csv' 
+WITH(FORMAT CSV, HEADER);
