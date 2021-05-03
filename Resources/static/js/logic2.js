@@ -46,3 +46,85 @@ function style(feature) {
 
 
 L.geoJson(map_data, {style: style}).addTo(myMap);
+
+// START CUSTOM LEGEND AND INTERACTIVITY HERE
+// Adding interaction
+function highlightFeature(e) {
+  var layer = e.target;
+
+  layer.setStyle({
+      weight: 5,
+      color: '#666',
+      dashArray: '',
+      fillOpacity: 0.7
+  });
+
+  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+  }
+}
+
+function resetHighlight(e) {
+  geojson.resetStyle(e.target);
+}
+
+// var geojson;
+// // ... our listeners
+// geojson = L.geoJson(...);
+
+function zoomToFeature(e) {
+  myMap.fitBounds(e.target.getBounds());
+}
+
+function onEachFeature(feature, layer) {
+  layer.on({
+      mouseover: highlightFeature,
+      mouseout: resetHighlight,
+      click: zoomToFeature
+  });
+}
+
+geojson = L.geoJson(map_data, {
+  style: style,
+  onEachFeature: onEachFeature
+}).addTo(myMap);
+
+// Custom Control
+var info = L.control();
+
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
+
+// method that we will use to update the control based on feature properties passed
+info.update = function (props) {
+    this._div.innerHTML = '<h4>Average NYC Prices</h4>' +  (props ?
+        '<b>' + props.zipcode + '</b><br />' + props.avg_price + ' price / mi<sup>2</sup>'
+        : 'Hover over a zipcode');
+};
+
+info.addTo(myMap);
+
+
+// Set up the legend
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function () {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        prices = [100000, 200000, 500000, 600000, 800000, 1000000, 2000000],
+        labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < prices.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(prices[i] + 1) + '"></i> ' +
+            prices[i] + (prices[i + 1] ? '&ndash;' + prices[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(myMap);
