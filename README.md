@@ -157,11 +157,15 @@ df['zipcode'] = df['location'].apply(parse_zipcode)
   *  Create bins based on IQR
 
 
-### Determiing Walkability - Merging Real Estate & Subway Station Datasets
+### Determiing Walkability - Real Estate & Subway Station Datasets
 
 # MACHINE LEARNING
 *  Step 1 Merge all dataframes outlined above, only keeping the binary encoded values to use as features (x variables)
 *  Step 2
 *  Step 3
+
+
+# SQL QUERIES & FLASK
+# FRONT END 
 
 
