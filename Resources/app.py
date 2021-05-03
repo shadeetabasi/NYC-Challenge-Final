@@ -37,6 +37,11 @@ with open(geojson_path, 'r') as f:
 # Home page
 # List all routes that are available
 
+@app.route("/about")
+def about():
+
+    return render_template("about.html")
+    
 @app.route('/randomForest', methods=['GET', 'POST'])
 def randomForest():
     if request.method == "POST":
