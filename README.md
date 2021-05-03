@@ -24,12 +24,12 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
   ``df = df.dropna(subset=['zipcode'])``
   * Datatype Conversion
   ``df['column_name'] = df['column_name'].astype('')``
+  * Use strip method combined with a slicer to ensure zipcodes were exactly five characters in length
+   ``df['zipcode'] = df['zipcode'].str[:5]``
    
 
 ### NYC Brownfields Data Set
   * Use ``str.contains()`` method to remove all records that were outside New York City (original dataset was for NY State brownfield records)
-  * Use strip method combined with a slicer to ensure zipcodes were exactly five characters in length
-   ``df['zipcode'] = df['zipcode'].str[:5]``
   * Group status of the clean-up site using ``str.replace()`` method - data has different rating scale depending on funding of the clean up project so some descriptions could be merged.
   * Generate binary values using ``pd.get_dummies`` on health status:
      * Potential Threat
@@ -121,4 +121,30 @@ df = df.join(enc_df1)
 # Rename columns that were added from encoder array
 df[[0, 1, 2, 3]] = df[[0, 1, 2, 3]].astype(str)
 df = df.rename(columns={0: 'health_level_dead', 1: 'health_level_fair', 2: 'health_level_good', 3: 'health_level_poor'}) 
+```
+
+### NYC Subway Stations Dataset
+
+* Use``pd.get_dummies`` to generate binary values for whether the subway station is ADA-Accessiblle - Yes, No, Partially
+* Ultimately, all datasets needed to share zipcode as a common column to later perform a groupby function. The dataset provide latitude and longitude values however there was no zipcode field. The Geopy library was used to create an API to find all location descriptor, using the latitude longitude pairs.
+
+```
+# Import Libaries
+from tqdm import tqdm
+tqdm.pandas()
+from geopy.geocoders import Nominatim
+geolocator = Nominatim(user_agent="emailhere@gmail.com")
+from geopy.extra.rate_limiter import RateLimiter
+
+reverse = RateLimiter(geolocator.reverse, min_delay_seconds=.01)
+
+df['location'] = df.progress_apply(lambda row: reverse((row['lat_field'], row['lon_field'])),axis=1)
+     
+def parse_zipcode(location):
+    if location and location.raw.get('address') and location.raw['address'].get('postcode'):
+        return location.raw['address']['postcode']
+    else:
+        return None
+df['zipcode'] = df['location'].apply(parse_zipcode)
+
 ```
