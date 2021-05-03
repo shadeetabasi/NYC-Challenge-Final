@@ -61,7 +61,7 @@ def randomForest():
         c=db.cursor()
         c.executemany('select * from real_estate_final where compass_property_type = %s''', request.form['search'])
         # return render_template("results.html", )
-    return render_template('dashboard.html', records=c.fetchall())
+    return render_template('dashboard2.html', records=c.fetchall())
 
 @app.route("/dashboard", methods=['GET','POST'])
 def dashboard():
