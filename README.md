@@ -149,3 +149,10 @@ def parse_zipcode(location):
 df['zipcode'] = df['location'].apply(parse_zipcode)
 
 ```
+
+### Real Estate Data Final
+* Use``pd.get_dummies`` to generate binary values for whether the subway station is ADA-Accessiblle - Yes, No, Partially
+* CHALLENGE: Preparing the data for front end user input and Machine Learning 
+  *  Beds, Baths, Sold Price
+  *  Days on Market Fill NA with Average
+  *  Create bins based on IQR
