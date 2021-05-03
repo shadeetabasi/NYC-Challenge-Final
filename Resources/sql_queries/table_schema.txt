@@ -171,7 +171,7 @@ CREATE TABLE real_estate_final(
 	,neighborhood VARCHAR
 	,borough VARCHAR
 	,bed int
-	,bath float
+	,bath int
 	,days_on_market int
 	,compass_property_type VARCHAR
 	,MLS_Property_Subtype VARCHAR
@@ -182,7 +182,7 @@ CREATE TABLE real_estate_final(
 	,zipcode int
 	,lat dec(6,4)
 	,long dec(6,4)
-	,year_built date
+	,year_built int
 	,dom_ranges VARCHAR
 	,dom_tier int
 	,dom_lowerbound int	
@@ -229,5 +229,4 @@ CREATE TABLE real_estate_final(
 	,type_is_Bottom_25th_Percentile_high int
 );
 
-\copy real_estate_final FROM 'C:/Users/bxprd/Data Analytics Bootcamp/Git_Repos/NYC-Challenge-Final/python_files/output/merged_re.csv' 
-WITH(FORMAT CSV, HEADER);
+\copy real_estate_final FROM 'C:/Users/bxprd/Data Analytics Bootcamp/Git_Repos/NYC-Challenge-Final/python_files/output/merged_re.csv' WITH(FORMAT CSV, HEADER);

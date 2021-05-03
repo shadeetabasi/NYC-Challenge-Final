@@ -1,5 +1,6 @@
 # Set up Dependencies 
 import os.path
+import os
 import numpy as np
 import pandas as pd
 import sqlalchemy
@@ -10,16 +11,21 @@ from flask import Flask, jsonify, render_template, redirect, Response, request
 import json
 from pprint import pprint
 from copy import deepcopy
+from dotenv import load_dotenv
 
 # Flask Setup
 app = Flask(__name__)
 app.static_folder = 'static'
 
 #Create connection to sql database
-connection_string = "postgres:postgres@localhost:5432/final_project"
-engine = create_engine(f'postgresql://{connection_string}')
+# connection_string = "postgres:postgres@localhost:5432/final_project"
+# engine = create_engine(f'postgresql://{connection_string}')
+load_dotenv()
+my_env_var = os.getenv('DB_CONNECTION_STRING')
+engine = create_engine(my_env_var)
 
-geojson_path = "/Users/shadeetabasi/code/NYC-Challenge-Final/Resources/static/data/nyc_zipcodes.geojson"
+# geojson_path = "/Users/shadeetabasi/code/NYC-Challenge-Final/Resources/static/data/nyc_zipcodes.geojson"
+geojson_path = "C:/Users/bxprd/Data Analytics Bootcamp/Git_Repos/NYC-Challenge-Final/Resources/static/data/nyc_zipcodes.geojson"
 with open(geojson_path, 'r') as f:
     nyc_zipcodes = json.load(f)
 
@@ -39,6 +45,23 @@ def loader():
     # 
     
     return render_template("loader.html")
+
+@app.route('/randomForest', methods=['GET', 'POST'])
+def randomForest():
+    if request.method == "POST":
+        db = connection.engine
+        req = request.form.get
+
+        compass_property_type = req["compass_property_type"]
+        zipcode = req["zipcode"]
+        bed = req["bdcount"]
+        bath = req["bacount"]
+        print("Request", dict(request.form))
+
+        c=db.cursor()
+        c.executemany('select * from real_estate_final where compass_property_type = %s''', request.form['search'])
+        # return render_template("results.html", )
+    return render_template('dashboard.html', records=c.fetchall())
 
 @app.route("/dashboard", methods=['GET','POST'])
 def dashboard():

@@ -15,9 +15,9 @@
 
         <h1 class="deepshadow">Real Estate Price Predictor</h1>
         <div class="container">
-            <form id = "client" class = "client" action="/predict_page.py">
+            <form id = "client" class = "client" action = "{{ url_for('randomForest') }}" method="POST">
                 <label id=property for="proptype">Choose a Property Type</label>
-                <select id="proptype" name="proptype">
+                <select id="proptype" name="compass_property_type">
                     <option value="starter"></option>
                     <option value="condo">Condo</option>
                     <option value="co-op">Coop</option>
@@ -25,11 +25,12 @@
                     <option value="house">House</option>
                 </select> 
                 
-                <label id=zip_code for="zip">Zip Code</label>
-                <input type="text" id="zip" name="zip"><br><br>
+                <label id=zipcode for="zipcode">Zip Code</label>
+                <input type="text" id="zipcode" name="zipcode" value="zipcode"><br><br>
                 
                 <label id = bedroom for="bdcount">Bedroom Count</label>
                 <select id="bdcount" name="bdcount" selected={}>
+                    <option value="starter"></option>
                     <option value=1>1</option>
                     <option value=2>2</option>
                     <option value=3>3</option>
@@ -44,6 +45,7 @@
 
                 <label id = bathroom for="bacount">Bathroom Count</label>
                 <select id="bacount" name="bacount" selected={{bathrooms}}>
+                    <option value="starter"></option>
                     <option value=1>1</option>
                     <option value=2>2</option>
                     <option value=3>3</option>
@@ -54,7 +56,7 @@
                 <br><br>  
             </form>
             <div class = buttons>
-                <a href="../templates/loader.html"><button class="button_predict">Predict Price</button></a> 
+                <a href="../templates/dashboard.html"><button class="button_predict">Predict Price</button></a> 
                 <button class="button_reset" id="button_reset">Reset</button>
             </div>
         </div>
