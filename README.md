@@ -126,7 +126,8 @@ df = df.rename(columns={0: 'health_level_dead', 1: 'health_level_fair', 2: 'heal
 ### NYC Subway Stations Dataset
 
 * Use``pd.get_dummies`` to generate binary values for whether the subway station is ADA-Accessiblle - Yes, No, Partially
-* Ultimately, all datasets needed to share zipcode as a common column to later perform a groupby function. The dataset provide latitude and longitude values however there was no zipcode field. The Geopy library was used to create an API to find all location descriptor, using the latitude longitude pairs.
+* CHALLENGE: 
+ * Ultimately, all datasets needed to share zipcode as a common column to later perform a groupby function. The dataset provide latitude and longitude values  however there was no zipcode field. The Geopy library was used to create an API to find all location descriptor, using the latitude longitude pairs.
 
 ```
 # Import Libaries
