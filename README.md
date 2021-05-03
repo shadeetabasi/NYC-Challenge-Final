@@ -37,6 +37,10 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
      * Completed - Clean - No Further Action
      * Active - Significant Threat
      * Active - Mild Threat
+ ```
+ # Generate binary values using get_dummies for danger level
+ dum_df1 = pd.get_dummies(df, columns=["danger_level"], prefix=["danger_level_is"] )
+ ```
 
 ### NYC Crime Data Set
 * Remove all complaint that were records before 2020
@@ -83,4 +87,15 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
   * ``Use pd.cut( )`` method to bin School Rankings into Top 25th, 50th Percentile, 75th Percentile and Bottom 25th Percentile
   * Use``pd.get_dummies`` on the newly created feature (binned school rankings)
 * Create a new feature and corresponding classification for generating binary values on a schools free lunch recipient status
+  * Within NYC 72% of students are eligible for discounted or free lunch
+  * Use ``np.where`` method to create Boolean column - true denotes that at that school the percentage of those eligible for subsidized food is greater than 72%
+    * True denotes greater that the  72% of students are eligible for free lunch
+    ``elem['lunch_eligibity_high'] = np.where(elem['free_lunch_recipient'] > 72, True, False)``
+  * Use``pd.get_dummies`` on the newly created feature showcasing if the school was above the city average in student eligibility of subsidized breakfast/lunch
+   
+
+
+
+### NYC Tree Dataset
+
 
