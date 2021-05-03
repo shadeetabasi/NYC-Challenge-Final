@@ -8,21 +8,8 @@
 
 # EXTRACT
 * Technologies Used: 
-  * Back End: Pandas, sql-alchemy, numpy, sklearn.preprocessing [oneHotEncoder], scipy.stats, geopy[distance], geopy.geocoders[Nominatim], geopy.exc[GeoCoderTimedOut], geopy.extra.rate_limiter[RateLimiter], geopandas, plotly_express, tqdm, tqdm.pandas(), sklearn.neighbors, tqd, datetime, tqdm_notebook
-  * Front End: Javascript, Leaflet, HTML, CSS, Bootstrap
-
-
-#import libraries and dependencies
-from sklearn import tree
-from sklearn.model_selection import train_test_split
-from sklearn.impute import SimpleImputer
-from sklearn.ensemble import RandomForestClassifier
-import numpy as np
-import pandas as pd
-import os
-from dotenv import load_dotenv
-from sqlalchemy import create_engine
-
+  * Back End: Flask, PostgreSQL, Python, Pandas, sqlalchemy [create_engine], numpy, os, dotenv[load_dotenv], sklearn.preprocessing [oneHotEncoder], scipy.stats, geopy[distance], geopy.geocoders[Nominatim], geopy.exc[GeoCoderTimedOut], geopy.extra.rate_limiter[RateLimiter], geopandas, plotly_express, tqdm, tqdm.pandas(), sklearn.neighbors, tqd, datetime, tqdm_notebook, sklearn[import tree], sklearn.model_selection [train_test_split], sklearn.impute [SimpleImputer], sklearn.ensemble [RandomForestClassifier]
+  * Front End: Javascript, Leaflet, HTML, CSS, Bootstrap sklearn.ensemble RandomForestClassifier
 
 Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
 
