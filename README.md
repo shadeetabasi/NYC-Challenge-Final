@@ -94,8 +94,31 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
   * Use``pd.get_dummies`` on the newly created feature showcasing if the school was above the city average in student eligibility of subsidized breakfast/lunch
    
 
-
-
 ### NYC Tree Dataset
 
+* Strip out the month and day values to leave only the year the tree was planted
+```
+# Ensure date planted only reflects the year planted
+df['year_planted'] = pd.DatetimeIndex(df['created_at']).year
+```
+* Add Categorical Encoding & Binary Values for the heath status of the tree - good, fair, poor, dead
+```
+# Convert type of columns to 'category'
+df['health'] = df['health'].astype('category')
 
+# Assign numerical values and store in another column
+df['health_level'] = df['health'].cat.codes
+
+# Create instance of OneHotEncoder
+enc1 = OneHotEncoder(handle_unknown='ignore')
+
+# Pass tree health category column (label encoded values of health_status)
+enc_df1 = pd.DataFrame(enc1.fit_transform(df[['health_level']]).toarray())
+
+# Merge with main df on key values
+df = df.join(enc_df1)
+
+# Rename columns that were added from encoder array
+df[[0, 1, 2, 3]] = df[[0, 1, 2, 3]].astype(str)
+df = df.rename(columns={0: 'health_level_dead', 1: 'health_level_fair', 2: 'health_level_good', 3: 'health_level_poor'}) 
+```
