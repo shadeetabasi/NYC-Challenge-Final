@@ -4,12 +4,11 @@
 
 # OVERVIEW
 
-* The datasets created and utilized for our analysis and visualizations took data on New York City (crime, education, environment, socio-economic, subway-access) filtered by zipcode. After initial exploratory analysis and cleaning, we decided to move foward with a Linear Regression and Random Forest Machine Learning Models.
+* The datasets created and utilized for our analysis and visualizations took data on New York City (crime, public school rankings, tree density/health, brownfield frequency/status socio-economic indicators, subway-access) filtered by zipcode. After initial exploratory analysis and cleaning, we decided to move foward with a Linear Regression and Random Forest Machine Learning Models.
 
-# EXTRACT
 * Technologies Used: 
   * Back End: Flask, PostgreSQL, Python, Pandas, sqlalchemy [create_engine], numpy, os, dotenv[load_dotenv], sklearn.preprocessing [oneHotEncoder], scipy.stats, geopy[distance], geopy.geocoders[Nominatim], geopy.exc[GeoCoderTimedOut], geopy.extra.rate_limiter[RateLimiter], geopandas, plotly_express, tqdm, tqdm.pandas(), sklearn.neighbors, tqd, datetime, tqdm_notebook, sklearn[import tree], sklearn.model_selection [train_test_split], sklearn.impute [SimpleImputer], sklearn.ensemble [RandomForestClassifier]
-  * Front End: Javascript, Leaflet, HTML, CSS, Bootstrap sklearn.ensemble RandomForestClassifier
+  * Front End: Javascript, Leaflet, HTML, CSS, Bootstrap 
 
 Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
 
@@ -150,9 +149,19 @@ df['zipcode'] = df['location'].apply(parse_zipcode)
 
 ```
 
-### Real Estate Data Final
+### NYC Real Estate Dataset
 * Use``pd.get_dummies`` to generate binary values for whether the subway station is ADA-Accessiblle - Yes, No, Partially
 * CHALLENGE: Preparing the data for front end user input and Machine Learning 
   *  Beds, Baths, Sold Price
   *  Days on Market Fill NA with Average
   *  Create bins based on IQR
+
+
+### Determiing Walkability - Merging Real Estate & Subway Station Datasets
+
+# MACHINE LEARNING
+*  Step 1 Merge all dataframes outlined above, only keeping the binary encoded values to use as features (x variables)
+*  Step 2
+*  Step 3
+
+
