@@ -185,8 +185,14 @@ result_regression['sold_price'] = y_test
 result_regression['y1_pred'] = y1_pred.tolist()
 result_regression.sample(5)
 
+# Score the y test data vs the predicted data
+r2 = r2_score(y_test, y1_pred)
+r2
+print('R-squared scores:', round(r2, 3))
+
+R-SQUARED SCORES: .77
 ```
-*  Step 3
+
 
 
 # SQL QUERIES & FLASK
