@@ -159,9 +159,31 @@ df['zipcode'] = df['location'].apply(parse_zipcode)
 
 ### Determiing Walkability - Real Estate & Subway Station Datasets
 
-# MACHINE LEARNING
-*  Step 1 Merge all dataframes outlined above, only keeping the binary encoded values to use as features (x variables)
-*  Step 2
+# MACHINE LEARNING - Random Forest Regression
+*  Merge all dataframes outlined above, only keeping the binary encoded values to use as features (x variables)
+*  Assign X values from the Real Estate Final table for the model & cast all as int 
+*  Assign Y value (dependent variable) from the Real Estate Final table for the model (y = sold_price)
+```
+# Run test and training of the data
+X_train, X_test, y_train, y_test = train_test_split(X1, y1, random_state = 101)
+
+# Run the Random Forest Regression and then fit it to the x and y training data
+model = RandomForestRegressor(n_estimators = 2000, max_depth = 150, random_state = 101)
+model.fit(X_train, y_train.values.ravel())
+
+
+# Make a prediction 
+y1_pred = model.predict(X_test)
+
+# Enusre that y1_pred is not in scientific notation
+pd.set_option('display.float_format', lambda x: '%.3f' % x)
+
+result_regression = X_test
+result_regression['sold_price'] = y_test
+result_regression['y1_pred'] = y1_pred.tolist()
+result_regression.sample(5)
+
+```
 *  Step 3
 
 
