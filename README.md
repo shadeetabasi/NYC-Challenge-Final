@@ -17,9 +17,9 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
 <img align= "center" src="3d.png" width="400" height="300"/> | <img align= "center" src="randomforestregression.png" width="400" height="300"/> 
 
 <section>
-Initially, we had 6 datasets encompassing Real Estate Sales, Subway Station Data, Tree Health, Crime, School Rankings and Brownfield sites for 2020 in New York. We reviewed the categorical and numeric data we had within and saw endless possibilities for feature creation. From the dearth of available x variables, we decided to pursue a Random Forest Regression and train the data to predict sales price. 
+Initially, we had 6 datasets encompassing Real Estate Sales, Subway Station Data, Tree Health, Crime, School Rankings and Brownfield sites for 2020 in New York. We reviewed the categorical and numeric data we had within and saw endless possibilities for feature creation. From the dearth of available x variables, we decided to pursue a Random Forest Regression and train the data to predict sales price.
+ 
 <br>
-
 Random Forest is an algorithm characterized as being both a supervised learning algorithm and an ensemble method. Supervised learning is defined by its use of labeled datasets to train algorithms to classify data and predict outcomes accurately. As input data (features) is fed into the model, it adjusts its weights through a reinforcement learning process, which ensures that the model is fitted appropriately.
 
 <br>
