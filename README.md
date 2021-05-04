@@ -25,7 +25,11 @@ Random Forest is an algorithm characterized as being both a supervised learning 
 
 <br>
 <br>
-Random Forest can also be classified as an ensemble method because it uses multiple learning algorithms to obtain better predictive performance than could be obtained from any of the constituent learning algorithms alone. The algorithm is comprised of an n number of decision trees which collectively predict an estimate of the expected outcome by way of voting. The goal of ensemble methods is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability. The Ensemble Method's accuracy is consequently enhanced by the collective wisdom of the many decision trees which helps prioritize features and reduce noise. At its foundation Random Forest is a collection of if/or conditionals that can be used to understand the important decision nodes and how they led to the final output (dependent variable). For each new input, each tree in the forest predicts a value for Y (output). The final value can be calculated by taking the average of all the values predicted by all the trees in forest.
+Random Forest can also be classified as an ensemble method because it uses multiple learning algorithms to obtain better predictive performance than could be obtained from any of the constituent learning algorithms alone. The algorithm is comprised of an n number of decision trees which collectively predict an estimate of the expected outcome by way of voting. The goal of ensemble methods is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability. The Ensemble Method's accuracy is consequently enhanced by the collective wisdom of the many decision trees which helps prioritize features and reduce noise. 
+
+<br>
+<br>
+At its foundation Random Forest is a collection of if/or conditionals that can be used to understand the important decision nodes and how they led to the final output (dependent variable). For each new input, each tree in the forest predicts a value for Y (output). The final value can be calculated by taking the average of all the values predicted by all the trees in forest.
 </section>
  
 # TRANSFORM
