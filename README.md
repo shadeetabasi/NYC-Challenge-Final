@@ -2,6 +2,7 @@
 
 <img align= "center" src="Subway.gif" width="480" height="300"/> | <img align="center" src="Police.gif" width="480" height="300"/>
 
+
 # OVERVIEW
 
 * The datasets created and utilized for our analysis and visualizations took data on New York City (crime, public school rankings, tree density/health, brownfield frequency/status socio-economic indicators, subway-access) filtered by zipcode. After initial exploratory analysis and cleaning, we decided to move foward with a Linear Regression and Random Forest Machine Learning Models.
@@ -160,6 +161,10 @@ df['zipcode'] = df['location'].apply(parse_zipcode)
 ### Determiing Walkability - Real Estate & Subway Station Datasets
 
 # MACHINE LEARNING - Random Forest Regression
+
+* The goal of ensemble methods is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability
+robustness over a single estimator.
+
 *  Merge all dataframes outlined above, only keeping the binary encoded values to use as features (x variables)
 *  Assign X values from the Real Estate Final table for the model & cast all as int 
 *  Assign Y value (dependent variable) from the Real Estate Final table for the model (y = sold_price)
@@ -192,8 +197,6 @@ print('R-squared scores:', round(r2, 3))
 
 R-SQUARED SCORES: .77
 ```
-
-
 
 # SQL QUERIES & FLASK
 # FRONT END 
