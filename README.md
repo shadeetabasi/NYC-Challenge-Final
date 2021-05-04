@@ -173,29 +173,18 @@ df['zipcode'] = df['location'].apply(parse_zipcode)
 * Use``pd.get_dummies`` to generate binary values for whether the subway station is ADA-Accessiblle - Yes, No, Partially
 * Based on our selection to use a Random Forest Regression, we knew we would ultimately need one comprehensive dataframe filled with x features (inputs) used to train the model. The front end was designed to have an input option for the count of bedrooms and bathrooms and the Y output would be an estimated price. That not only informed our decision to focus our preprocessing on those columns but also use this dataset as the starting point for the future merge of all binary encoded values.
 
-* The original dataset for all 2020 Real Estate Transactions in NYC was comprised of 36,177 rows and 41 columns. After dropping all rows with NaN values for zipcode or sold price and also dropping any rows where sold price < 10,000 (rentals inputted in mistakenly as sales or all transfers?) there were 35,295 rows to train our model. 
-
-* 
+* The original dataset for all 2020 Real Estate Transactions in NYC was comprised of 36,177 rows and 41 columns. After dropping all rows with NaN values for zipcode or sold price and also dropping any rows where sold price < 10,000 (rentals inputted in mistakenly as sales or all transfers?) there were 35,295 rows to train our model. An unanticipated bottleneck was the need to replace string values - ``df['bed'] = df['bed'].str.replace('Studio', '0')`` or ensure all housing units listed had a minimum of 1 bathroom ``df['bath'].values[df['bath'].values < 1] = 1`` in advance of converting the bed, bath and days on market columns to floats. The machine learning model would also need to recognize sold price and listd price values so all $ symbols and commas were removed before converting the datatype.
 
 ```
-# Drop all rows where sold price equals NaN
-df = df.dropna(subset=['sold_price'])
-
-# In bed column, replace 'Studio' + Alcove with '0'
-df['bed'] = df['bed'].str.replace('Studio', '0')
-df['bed'] = df['bed'].str.replace('Alcove', '0')
-
-# Convert any bath field values less than 1 to 1
-df['bath'].values[df['bath'].values < 1] = 1
-
-# Convert bath and dom column to float
-df['bed'] = df.bed.astype(float)
-#df['bath'] = df.bath.astype(float)
-df['days_on_market'] = df.days_on_market.astype(float)
-
+# Remove commas and dollar signs from sold price listed price and convert to float
+df['sold_price'] = df['sold_price'].str.replace('$', '')
+df['sold_price'] = df['sold_price'].str.replace(',', '')
+df['sold_price'] = pd.to_numeric(df['sold_price'])
 ```
 
-  *  Beds, Baths, Sold Price
+* Beyond using the original Real Estate Dataset and append other dataframes to it, we also wanted to expand our feature list within the dataframe and narrowed our focus to the the 'dom' column ('days on market') but immediately saw that there were hundreds of empty values for the days on market field. With the work of excel, any column that had both a listing date and sold date calculated and populated the difference in days within that column. Moving back into Jupyter Notebook, we prepared the days on market for binning and ultimately binary value encoding.
+
+
   *  Days on Market Fill NA with Average
   *  Create bins based on IQR
 
