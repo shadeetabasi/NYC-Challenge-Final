@@ -159,7 +159,7 @@
                     <div class="numbers">
                       <p class="text-sm mb-0 text-capitalize font-weight-bold">Zip Code</p>
                       <h5 class="font-weight-bolder mb-0">
-                        <input class="form-control" type="text" id="zip_code" name="zip_code" style="width:100%" placeholder="10010">
+                        <input class="form-control" type="text" id="zip_code" name="zip_code" style="width:100%" value={{zip_code}}>
                       </h5>
                     </div>
                   </div>
@@ -181,11 +181,11 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Property Type</p>
                     <h5 class="font-weight-bolder mb-0">
-                      <select class="form-control" id="property_type" name="property_type" >
-                        <option value="condo">Condo</option>
-                        <option value="co-op">Coop</option>
-                        <option value="townhouse">Townhouse</option>
-                        <option value="house">House</option>
+                      <select class="form-control" id="property_type" name="property_type" selected={{property_type}} >
+                        <option value="condo" {{"selected" if property_type=="condo"}} >Condo</option>
+                        <option value="co-op" {{"selected" if property_type=="co-op"}}>Coop</option>
+                        <option value="townhouse"{{"selected" if property_type=="townhouse"}} >Townhouse</option>
+                        <option value="house" {{"selected" if property_type=="house"}}>House</option>
                     </select> 
                     </h5>
                   </div>
@@ -209,17 +209,14 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold"># Bedrooms</p>
                     <h5 class="font-weight-bolder mb-0">
-                      <select class="form-control" id="bedrooms" name="bedrooms" selected={{bedrooms}}>
-                          <option value=1>1</option>
-                          <option value=2>2</option>
-                          <option value=3>3</option>
-                          <option value=4>4</option>
-                          <option value=5>5</option>
-                          <option value=6>6</option>
-                          <option value=7>7</option>
-                          <option value=8>8</option>
-                          <option value=9>9</option>
-                          <option value=10>10</option>
+                      <select class="form-control" id="bedrooms" name="bedrooms" value={{bedrooms}}>
+                        {% for value in range(1,7) %}
+                          {% if value == bedrooms %}
+                              <option value="{{ value }}" selected='selected'>{{ value }}</option>
+                          {% else %}
+                              <option value="{{ value }}" >{{ value }}</option>
+                          {% endif %}
+                        {% endfor %}
                       </select>
                     </h5>
                   </div>
@@ -242,13 +239,14 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold"># Baths</p>
                     <h5 class="font-weight-bolder mb-0">
-                      <select class="form-control" id="baths" name="baths" >
-                        <option value=1>1</option>
-                        <option value=2>2</option>
-                        <option value=3>3</option>
-                        <option value=4>4</option>
-                        <option value=5>5</option>
-                        <option value=6>6</option>
+                      <select class="form-control" id="baths" name="baths">
+                        {% for value in range(1,7) %}
+                          {% if value == baths %}
+                              <option value="{{ value }}" selected='selected'>{{ value }}</option>
+                          {% else %}
+                              <option value="{{ value }}" >{{ value }}</option>
+                          {% endif %}
+                        {% endfor %}
                     </select>
                     </h5>
                   </div>
@@ -278,8 +276,10 @@
                 <div class="col-lg-6">
                   <div class="d-flex flex-column h-100">
                     <p class="mb-1 pt-2 text-bold">Model Output</p>
-                    <h5 class="font-weight-bolder">Placeholder</h5>
+                    <h5 class="font-weight-bolder">{{ "${:,.2f}". format(predicted_price)}}</h5>
+                    <p class="mb-5">Estimated for a {{bedrooms}} bed, {{baths}} baths, {{property_type}} in {{zip_code}} </p>
                     <p class="mb-5">This is the estimated price based on the user's inputs.</p>
+                    <p class="mb-5">{{disclaimer}}</p>
                   </div>
                 </div>
                 <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
