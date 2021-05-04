@@ -169,27 +169,59 @@ df['zipcode'] = df['location'].apply(parse_zipcode)
 ```
 
 ### NYC Real Estate Dataset
+
 * To generate binary values for the bins created to represent ranges for days on market, OneHotEncoder cannot process string values directly without mapping them as integers so for to create the days on market feature, use``pd.get_dummies``. By default, pandas.get_dummies only converts string columns into one-hot representation, unless columns are specified.
 
 * Based on our selection to use a Random Forest Regression, we knew we would ultimately need one comprehensive dataframe filled with x features (inputs) used to train the model. The front end was designed to have an input option for the count of bedrooms and bathrooms and the Y output would be an estimated price. That not only informed our decision to focus our preprocessing on those columns but also use this dataset as the starting point for the future merge of all binary encoded values.
 
-* The original dataset for all 2020 Real Estate Transactions in NYC was comprised of 36,177 rows and 41 columns. After dropping all rows with NaN values for zipcode or sold price and also dropping any rows where sold price < 10,000 (rentals inputted in mistakenly as sales or all transfers?) there were 35,295 rows to train our model. An unanticipated bottleneck was the need to replace string values - ``df['bed'] = df['bed'].str.replace('Studio', '0')`` or ensure all housing units listed had a minimum of 1 bathroom ``df['bath'].values[df['bath'].values < 1] = 1`` in advance of converting the bed, bath and days on market columns to floats. The machine learning model would also need to recognize sold price and listd price values so all $ symbols and commas were removed before converting the datatype.
+* The original dataset for all 2020 Real Estate Transactions in NYC was comprised of 36,177 rows and 41 columns. After dropping all rows with NaN values for zipcode or sold price and also dropping any rows where sold price < 10,000 (rentals inputted in mistakenly as sales or all transfers?) there were 35,295 rows to train our model. An unanticipated bottleneck was the need to replace string values - ``df['bed'] = df['bed'].str.replace('Studio', '0')`` or ensure all housing units listed had a minimum of 1 bathroom ``df['bath'].values[df['bath'].values < 1] = 1`` in advance of converting the bed and bath to floats. The machine learning model would also need to recognize sold price and listd price values so all $ symbols and commas were removed before converting the datatype.
 
 ```
 # Remove commas and dollar signs from sold price listed price and convert to float
 df['sold_price'] = df['sold_price'].str.replace('$', '')
 df['sold_price'] = df['sold_price'].str.replace(',', '')
 df['sold_price'] = pd.to_numeric(df['sold_price'])
+df['bed'] = df.bed.astype(float)
 ```
 
 * Beyond using the original Real Estate Dataset and append other dataframes to it, we also wanted to expand our feature list within the dataframe and narrowed our focus to the the 'dom' column ('days on market') but immediately saw that there were hundreds of empty values for the days on market field. With the work of excel, any column that had both a listing date and sold date calculated and populated the difference in days within that column. Moving back into Jupyter Notebook, we prepared the days on market for binning and ultimately binary value encoding.
 
-* After converting the days on market value to a float and adding in values where both sold and list date existed, 
+* After converting the days on market value to a float and adding in values where both sold and list date existed, we filled in all remaining blanks with the average days on market (105), created bins using IQR ranges and used ``pd.cut()`` to create a new feature that could then be split into binary values.
 
+* Create a classification using IQR calculations for Days on Market
+```
+# Convert days on market column to floats
+df['days_on_market'] = df['days_on_market'].str.replace(',', '') # Removes commas from any properties on the market for 1000+ days
+df['days_on_market'] = pd.to_numeric(df['days_on_market'])
 
-  *  Days on Market Fill NA with Average
-  *  Create bins based on IQR
+# Fill all blank values in DOM field with average days (105)
+df['days_on_market'] = df['days_on_market'].replace(r'^\s*$', np.nan, regex=True)
+df['days_on_market'] = df['days_on_market'].fillna('105')
 
+# Calculate IQR for Days on Market 
+Q1 = df['days_on_market'].quantile(0.25)
+Q2 = df['days_on_market'].quantile(0.50)
+Q3 = df['days_on_market'].quantile(0.75)
+IQR = Q3 - Q1
+print(f'IQR for days on market: {IQR}')
+    
+# Find upper and lower bounds to help identify outliers for each regimen
+lower_bound = Q1 - (1.5*IQR)
+upper_bound = Q3 + (1.5*IQR)
+
+outliers_excluded_df = df[(np.abs(st.zscore(df['days_on_market'])) < 3)]
+max_days_without_outlier = outliers_excluded_df['days_on_market'].max()
+
+# Create bins to hold values
+ranges = [0, 55, 105, 188, 388, 3140]
+
+# Label the bins
+bin_names = ["<55", "55-105", "105-188", "188-388", "388-3140"]
+
+# Add a bins column 
+df["dom_ranges"] = pd.cut(df['days_on_market'], ranges, labels=bin_names)
+
+```
 
 ### Determiing Walkability - Real Estate & Subway Station Datasets
 
