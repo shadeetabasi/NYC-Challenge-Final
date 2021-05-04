@@ -1,6 +1,6 @@
 # Machine Learning - Real Estate Valuations
 
-<img align= "center" src="NYC.gif" width="800" height="400"/> 
+<img align= "center" src="NYC.gif" width="1000" height="500"/> 
 
 
 # OVERVIEW
