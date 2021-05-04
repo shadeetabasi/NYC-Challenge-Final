@@ -169,6 +169,8 @@ X_train, X_test, y_train, y_test = train_test_split(X1, y1, random_state = 101)
 
 # Run the Random Forest Regression and then fit it to the x and y training data
 model = RandomForestRegressor(n_estimators = 2000, max_depth = 150, random_state = 101)
+
+# Use ``.ravel() method`` to convert dataframe to to 1 dimensional array to fit machine learning model
 model.fit(X_train, y_train.values.ravel())
 
 
