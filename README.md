@@ -228,7 +228,4 @@ print('R-squared scores:', round(r2, 3))
 R-SQUARED SCORES: .77
 ```
 
-# SQL QUERIES & FLASK
-# FRONT END 
-
 
