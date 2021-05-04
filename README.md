@@ -1,4 +1,5 @@
 # Machine Learning - Real Estate Valuations
+Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
 
 <img align= "center" src="NYC.gif" width="1000" height="500"/> 
 
@@ -10,7 +11,6 @@
   * Back End: Flask, PostgreSQL, Python, Pandas, sqlalchemy [create_engine], numpy, os, dotenv[load_dotenv], sklearn.preprocessing [oneHotEncoder], scipy.stats, geopy[distance], geopy.geocoders[Nominatim], geopy.exc[GeoCoderTimedOut], geopy.extra.rate_limiter[RateLimiter], geopandas, plotly_express, tqdm, tqdm.pandas(), sklearn.neighbors, tqd, datetime, tqdm_notebook, sklearn[import tree], sklearn.model_selection [train_test_split], sklearn.impute [SimpleImputer], sklearn.ensemble [RandomForestClassifier]
   * Front End: Javascript, Leaflet, HTML, CSS, Bootstrap 
 
-Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
 
 # Machine Learning - Random Forest Regression
 
