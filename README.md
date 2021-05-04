@@ -228,6 +228,65 @@ df["dom_ranges"] = pd.cut(df['days_on_market'], ranges, labels=bin_names)
 
 * One data limitation that became apparent was that the Real Estate housing latitude/longitudes were rounded to the area's zipcode so the 'closest' train station and mileage associated was inacurrate. To keep the integrity of the data, rather than binning within 1/4 mile, 1/2 mile etc. ranges, we simply did an over 1 mile/under 1 mile and dropped any column referencing the 'closest' station.
 
+```
+# Challenge: Find the closest train station to each housing record
+
+# Find the absolute value of each coordinate pair
+def dist(lat1, long1, lat2, long2):
+    return np.abs((lat1-lat2)+(long1-long2))
+
+# Extract all lat values and save to variable
+lat_column = housing.loc[:,'lat']
+lats = lat_column.values
+
+
+# Extract all long values and save to variable
+long_column = housing.loc[:,'long']
+longs = long_column.values
+
+# Apply lambda function across each column and if 1 apply the function to the row
+distances = stations.apply(
+    lambda row: dist(lats, longs, row['lat_field'], row['lon_field']), 
+    axis=1)
+
+# Use idxmin to calculate the closest station name
+
+def find_station(lat, long):
+    distances = stations.apply(
+        lambda row: dist(lat, long, row['lat_field'], row['lon_field']), 
+        axis=1)
+    return stations.loc[distances.idxmin(), 'station_name']
+    
+# Find the closest station name to each recorded sale
+closest_station = housing.apply(
+    lambda row: find_station(row['lat'], row['long']), 
+    axis=1)
+
+#### Find the distance between two lists of geographic coordinates - Use Haversine Distance
+# Convert latitude and longitude to radians and add these columns to the dataframe using np.radians
+
+# Add columns with radians for latitude and longitude
+housing[['lat_radians_housing','long_radians_housing']] = (
+    np.radians(housing.loc[:,['lat','long']])
+)
+
+stations[['lat_radians_stations','long_radians_stations']] = (
+    np.radians(stations.loc[:,['lat_field','lon_field']])
+)
+
+# Add unique ID column
+housing['uniqueid'] = np.arange(len(housing))
+
+# Append to housing dataframe
+housing['distance_miles'] = minValuesObj
+housing
+
+# Use np.where to create Bool column --> True denotes less than 1 mile from train (lat/long in housing is zipcode based)
+housing['under_1_mile'] = np.where(housing['distance_miles'] <= 1, True, False)
+housing.head()
+
+```
+
 # Machine Learning - Random Forest Regression
 
 *  Merge all dataframes outlined above, only keeping the binary encoded values to use as features (x variables)
