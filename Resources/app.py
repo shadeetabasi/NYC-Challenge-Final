@@ -60,23 +60,6 @@ with open(geojson_path, 'r') as f:
 def about():
 
     return render_template("about.html")
-    
-# @app.route('/randomForest', methods=['GET', 'POST'])
-# def randomForest():
-#     if request.method == "POST":
-#         db = connection.engine
-#         req = request.form.get
-
-#         compass_property_type = req["compass_property_type"]
-#         zipcode = req["zipcode"]
-#         bed = req["bdcount"]
-#         bath = req["bacount"]
-#         print("Request", dict(request.form))
-
-#         c=db.cursor()
-#         c.executemany('select * from real_estate_final where compass_property_type = %s''', request.form['search'])
-#         # return render_template("results.html", )
-#     return render_template('dashboard2.html', records=c.fetchall())
 
 @app.route("/dashboard", methods=['GET','POST'])
 def dashboard():
@@ -136,7 +119,7 @@ def dashboard():
 @app.route("/realestate")
 def realestate():
 
-    return render_template("#")
+    return render_template("housing_table.html")
 
 @app.route("/crimes")
 def crimes():
