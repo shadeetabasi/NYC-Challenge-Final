@@ -4,14 +4,21 @@
 
 
 # OVERVIEW
-
-* The datasets created and utilized for our analysis and visualizations took data on New York City (crime, public school rankings, tree density/health, brownfield frequency/status socio-economic indicators, subway-access) filtered by zipcode. After initial exploratory analysis and cleaning, we decided to move foward with a Linear Regression and Random Forest Machine Learning Models.
+* The datasets created and utilized for our analysis and visualizations took data on New York City (crime, public school rankings, tree health, proximity to and status of brownfield clean-up sites, socio-economic indicators like subway access for the disabled, subway proximity and walkability and the percentage of students qualifying for subsidized school meals, filtered by zipcode. After initial exploratory analysis and cleaning, we decided to move foward with a Linear Regression and Random Forest Machine Learning Models.
 
 * Technologies Used: 
   * Back End: Flask, PostgreSQL, Python, Pandas, sqlalchemy [create_engine], numpy, os, dotenv[load_dotenv], sklearn.preprocessing [oneHotEncoder], scipy.stats, geopy[distance], geopy.geocoders[Nominatim], geopy.exc[GeoCoderTimedOut], geopy.extra.rate_limiter[RateLimiter], geopandas, plotly_express, tqdm, tqdm.pandas(), sklearn.neighbors, tqd, datetime, tqdm_notebook, sklearn[import tree], sklearn.model_selection [train_test_split], sklearn.impute [SimpleImputer], sklearn.ensemble [RandomForestClassifier]
   * Front End: Javascript, Leaflet, HTML, CSS, Bootstrap 
 
 Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
+
+# Machine Learning - Random Forest Regression
+* Random forest is a type of supervised machine learning algorithm based on ensemble learning. The goal of ensemble methods is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability
+robustness over a single estimator.
+Pick N random records from the dataset.
+Build a decision tree based on these N records.
+Choose the number of trees you want in your algorithm and repeat steps 1 and 2.
+In case of a regression problem, for a new record, each tree in the forest predicts a value for Y (output). The final value can be calculated by taking the average of all the values predicted by all the trees in forest.
 
 # TRANSFORM
 ### General clean up
@@ -161,9 +168,6 @@ df['zipcode'] = df['location'].apply(parse_zipcode)
 ### Determiing Walkability - Real Estate & Subway Station Datasets
 
 # MACHINE LEARNING - Random Forest Regression
-
-* The goal of ensemble methods is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability
-robustness over a single estimator.
 
 *  Merge all dataframes outlined above, only keeping the binary encoded values to use as features (x variables)
 *  Assign X values from the Real Estate Final table for the model & cast all as int 
