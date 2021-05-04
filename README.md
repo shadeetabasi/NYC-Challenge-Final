@@ -224,6 +224,9 @@ df["dom_ranges"] = pd.cut(df['days_on_market'], ranges, labels=bin_names)
 ```
 
 ### Determiing Walkability - Real Estate & Subway Station Datasets
+* The original subway dataset provided binary encoding for ada-accessibility from the original data. To create a more interesting feature, we added a walk-score for each housing record using ``sklearn.neighbors`` which implements the k-nearest neighbors vote and finds the shortest distance which required us to compare the latitude/longitude pairs for all 30,000+ housing records against 494 Real Estate stations to find the closest station and distance in miles.
+
+* One data limitation that became apparent was that the Real Estate housing latitude/longitudes were rounded to the area's zipcode so the 'closest' train station and mileage associated was inacurrate. To keep the integrity of the data, rather than binning within 1/4 mile, 1/2 mile etc. ranges, we simply did an over 1 mile/under 1 mile and dropped any column referencing the 'closest' station.
 
 # Machine Learning - Random Forest Regression
 
