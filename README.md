@@ -14,7 +14,7 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
 
 # Machine Learning - Random Forest Regression
 
-<img align= "center" src="3d.png" width="1000" height="500"/> | <img align= "center" src="randomforestregression.png.png" width="1000" height="500"/> 
+<img align= "center" src="3d.png" width="475" height="250"/> | <img align= "center" src="randomforestregression.png.png" width="475" height="250"/> 
 
 * Random forest is a type of supervised machine learning algorithm based on ensemble learning. The goal of ensemble methods is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability
 robustness over a single estimator.
