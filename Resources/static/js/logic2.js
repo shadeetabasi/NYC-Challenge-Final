@@ -51,6 +51,7 @@ L.geoJson(map_data, {style: style}).addTo(myMap);
 // Adding interaction
 function highlightFeature(e) {
   var layer = e.target;
+  info.update(layer.feature.properties);
 
   layer.setStyle({
       weight: 5,
@@ -66,6 +67,7 @@ function highlightFeature(e) {
 
 function resetHighlight(e) {
   geojson.resetStyle(e.target);
+  info.update();
 }
 
 // var geojson;
@@ -101,7 +103,7 @@ info.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
     this._div.innerHTML = '<h4>Average NYC Prices</h4>' +  (props ?
-        '<b>' + props.zipcode + '</b><br />' + props.avg_price + ' price / mi<sup>2</sup>'
+        '<b>' + props.postalCode + '</b><br />' + '$' + props.avg_price
         : 'Hover over a zipcode');
 };
 
