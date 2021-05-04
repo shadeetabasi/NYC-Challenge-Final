@@ -184,6 +184,8 @@ df['sold_price'] = pd.to_numeric(df['sold_price'])
 
 * Beyond using the original Real Estate Dataset and append other dataframes to it, we also wanted to expand our feature list within the dataframe and narrowed our focus to the the 'dom' column ('days on market') but immediately saw that there were hundreds of empty values for the days on market field. With the work of excel, any column that had both a listing date and sold date calculated and populated the difference in days within that column. Moving back into Jupyter Notebook, we prepared the days on market for binning and ultimately binary value encoding.
 
+* After converting the days on market value to a float and adding in values where both sold and list date existed, 
+
 
   *  Days on Market Fill NA with Average
   *  Create bins based on IQR
