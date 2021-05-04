@@ -16,11 +16,11 @@ Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
 
 <img align= "center" src="3d.png" width="400" height="300"/> | <img align= "center" src="randomforestregression.png" width="400" height="300"/> 
 
-Initially, we had 6 datasets encompassing Real Estate Sales, Subway Station Data, Tree Health, Crime, School Rankings and Brownfield sites for 2020 in New York. We reviewed the categorical and numeric data we had within and saw endless possibilities for feature creation. From the dearth of available x variables, we decided to purse a Random Forest Regression and train the data to predict sales price. 
+* Initially, we had 6 datasets encompassing Real Estate Sales, Subway Station Data, Tree Health, Crime, School Rankings and Brownfield sites for 2020 in New York. We reviewed the categorical and numeric data we had within and saw endless possibilities for feature creation. From the dearth of available x variables, we decided to purse a Random Forest Regression and train the data to predict sales price. 
 
-Random Forest is an algorithm characterized as being both a supervised learning algorithm and an ensemble method. Supervised learning is defined by its use of labeled datasets to train algorithms to classify data and predict outcomes accurately. As input data (features) is fed into the model, it adjusts its weights through a reinforcement learning process, which ensures that the model is fitted appropriately.
+* Random Forest is an algorithm characterized as being both a supervised learning algorithm and an ensemble method. Supervised learning is defined by its use of labeled datasets to train algorithms to classify data and predict outcomes accurately. As input data (features) is fed into the model, it adjusts its weights through a reinforcement learning process, which ensures that the model is fitted appropriately.
 
-Random Forest can also be classified as an ensemble method because it uses multiple learning algorithms to obtain better predictive performance than could be obtained from any of the constituent learning algorithms alone. The algorithm is comprised of an n number of decision trees which collectively predict an estimate of the expected outcome by way of voting. The goal of ensemble methods is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability. The Ensemble Method's accuracy is consequently enhanced by the collective wisdom of the many decision trees which helps prioritize features and reduce noise. At its foundation Random Forest is a collection of if/or conditionals that can be used to understand the important decision nodes and how they led to the final output (dependent variable). For each new input, each tree in the forest predicts a value for Y (output). The final value can be calculated by taking the average of all the values predicted by all the trees in forest.
+* Random Forest can also be classified as an ensemble method because it uses multiple learning algorithms to obtain better predictive performance than could be obtained from any of the constituent learning algorithms alone. The algorithm is comprised of an n number of decision trees which collectively predict an estimate of the expected outcome by way of voting. The goal of ensemble methods is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability. The Ensemble Method's accuracy is consequently enhanced by the collective wisdom of the many decision trees which helps prioritize features and reduce noise. At its foundation Random Forest is a collection of if/or conditionals that can be used to understand the important decision nodes and how they led to the final output (dependent variable). For each new input, each tree in the forest predicts a value for Y (output). The final value can be calculated by taking the average of all the values predicted by all the trees in forest.
 
 # TRANSFORM
 ### General clean up
@@ -161,7 +161,30 @@ df['zipcode'] = df['location'].apply(parse_zipcode)
 
 ### NYC Real Estate Dataset
 * Use``pd.get_dummies`` to generate binary values for whether the subway station is ADA-Accessiblle - Yes, No, Partially
-* CHALLENGE: Preparing the data for front end user input and Machine Learning 
+* Based on our selection to use a Random Forest Regression, we knew we would ultimately need one comprehensive dataframe filled with x features (inputs) used to train the model. The front end was designed to have an input option for the count of bedrooms and bathrooms and the Y output would be an estimated price. That not only informed our decision to focus our preprocessing on those columns but also use this dataset as the starting point for the future merge of all binary encoded values.
+
+* The original dataset for all 2020 Real Estate Transactions in NYC was comprised of 36,177 rows and 41 columns. After dropping all rows with NaN values for zipcode or sold price and also dropping any rows where sold price < 10,000 (rentals inputted in mistakenly as sales or all transfers?) there were 35,295 rows to train our model. 
+
+* 
+
+```
+# Drop all rows where sold price equals NaN
+df = df.dropna(subset=['sold_price'])
+
+# In bed column, replace 'Studio' + Alcove with '0'
+df['bed'] = df['bed'].str.replace('Studio', '0')
+df['bed'] = df['bed'].str.replace('Alcove', '0')
+
+# Convert any bath field values less than 1 to 1
+df['bath'].values[df['bath'].values < 1] = 1
+
+# Convert bath and dom column to float
+df['bed'] = df.bed.astype(float)
+#df['bath'] = df.bath.astype(float)
+df['days_on_market'] = df.days_on_market.astype(float)
+
+```
+
   *  Beds, Baths, Sold Price
   *  Days on Market Fill NA with Average
   *  Create bins based on IQR
@@ -169,7 +192,7 @@ df['zipcode'] = df['location'].apply(parse_zipcode)
 
 ### Determiing Walkability - Real Estate & Subway Station Datasets
 
-# MACHINE LEARNING - Random Forest Regression
+# Machine Learning - Random Forest Regression
 
 *  Merge all dataframes outlined above, only keeping the binary encoded values to use as features (x variables)
 *  Assign X values from the Real Estate Final table for the model & cast all as int 
