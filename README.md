@@ -31,7 +31,11 @@ Random Forest can also be classified as an ensemble method because it uses multi
 <br>
 At its foundation Random Forest is a collection of if/or conditionals that can be used to understand the important decision nodes and how they led to the final output (dependent variable). For each new input, each tree in the forest predicts a value for Y (output). The final value can be calculated by taking the average of all the values predicted by all the trees in forest.
 </section>
- 
+
+## Machine Learning Analysis & Results
+The Random Forest Regression was passed 48 features for our X (independent) variable such as bed/bath count and days on the market and the Sold Price for our y (dependent) variable. We felt that the number of features were appropriate given the size of the original datasets were larger. The n value we choose for the forest was 50 with a random state of 101 to which provided us with enough trees and shuffling to predict a high R2 score of ~84%.
+
+
 # TRANSFORM
 ### General clean up
   * ``str.lower()`` to convert all strings to lowercase
