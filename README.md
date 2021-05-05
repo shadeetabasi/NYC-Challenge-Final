@@ -1,16 +1,24 @@
 # Machine Learning - Real Estate Valuations
-Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel, Manny Mejia
+Group Members: Stephen Brescher, Shadee Tabassi, Alison Sadel and Manny Mejia
 
 <img align= "center" src="NYC.gif" width="1000" height="500"/> 
 
 
-# OVERVIEW
+# Overview
 * The datasets created and utilized for our analysis and visualizations took data on New York City (crime, public school rankings, tree health, proximity to and status of brownfield clean-up sites, socio-economic indicators like subway access for the disabled, subway proximity and walkability and the percentage of students qualifying for subsidized school meals, filtered by zipcode. After initial exploratory analysis and cleaning, we decided to move foward with a Linear Regression and Random Forest Machine Learning Models.
 
 * Technologies Used: 
-  * Back End: Flask, PostgreSQL, Python, Pandas, sqlalchemy [create_engine], numpy, os, dotenv[load_dotenv], sklearn.preprocessing [oneHotEncoder], scipy.stats, geopy[distance], geopy.geocoders[Nominatim], geopy.exc[GeoCoderTimedOut], geopy.extra.rate_limiter[RateLimiter], geopandas, plotly_express, tqdm, tqdm.pandas(), sklearn.neighbors, tqd, datetime, tqdm_notebook, sklearn[import tree], sklearn.model_selection [train_test_split], sklearn.impute [SimpleImputer], sklearn.ensemble [RandomForestClassifier]
+  * Back End: Flask, PostgreSQL, Python, Pandas, sqlalchemy [create_engine], numpy, os, dotenv[load_dotenv], sklearn.preprocessing [oneHotEncoder], scipy.stats, geopy[distance], geopy.geocoders[Nominatim], geopy.exc[GeoCoderTimedOut], geopy.extra.rate_limiter[RateLimiter], geopandas, plotly_express, tqdm, tqdm.pandas(), sklearn.neighbors, tqd, datetime, tqdm_notebook, sklearn[import tree], sklearn.model_selection [train_test_split, cross_val_score, RepeatedKFold], sklearn.impute [SimpleImputer], sklearn.ensemble [RandomForestClassifier], sklearn.ensemble [RandomForestRegressor], sklearn.metrics[confusion_matrix,classification_report,plot_confusion_matrix,accuracy_score, r2_score, mean_squared_log_error, mean_absolute_error, mean_squared_error ], mpl_toolkits.mplot3d[Axes3D], matplotlib.colors [ListedColormap]
+  
   * Front End: Javascript, Leaflet, HTML, CSS, Bootstrap 
 
+# Sources
+* <a href="https://www.kaggle.com/nycparks/tree-census?select=new_york_tree_census_2015.csv" target="_top"> NYC Tree Health Census - Kaggle </a>
+* <a href="https://catalog.data.gov/dataset?tags=nypd" target="_top"> NYC Crime Data - Data.gov </a>
+* <a href="https://www.compass.com/agents/" target="_top"> NYC Real Estate Sales 2020 - Compass </a>
+* <a href="https://gis.ny.gov/gisdata/inventories/details.cfm?DSID=1097" target="_top"> NYC Brownfields Cleanup Data - NYC GIS </a>
+* <a href="http://web.mta.info/developers/developer-data-terms.html#data" target="_top"> NYC Subway Data - MTA </a>
+* <a href="https://www.schooldigger.com/go/NY/schoolrank.aspx" target="_top"> NYC School Rankings Data (Elementary, Middle, High School) - School Digger</a>
 
 # Machine Learning - Random Forest Regression
 
@@ -32,11 +40,45 @@ Random Forest can also be classified as an ensemble method because it uses multi
 At its foundation Random Forest is a collection of if/or conditionals that can be used to understand the important decision nodes and how they led to the final output (dependent variable). For each new input, each tree in the forest predicts a value for Y (output). The final value can be calculated by taking the average of all the values predicted by all the trees in forest.
 </section>
 
+# Random Forest Regression Model
+  ## Prework
+  *  Merge all dataframes outlined above, only keeping the binary encoded values to use as features (x variables)
+  *  Assign X values from the Real Estate Final table for the model & cast all as int 
+  *  Assign Y value (dependent variable) from the Real Estate Final table for the model (y = sold_price)
+ 
+```
+# Run test and training of the data
+X_train, X_test, y_train, y_test = train_test_split(X1, y1, random_state = 101)
+
+# Run the Random Forest Regression and then fit it to the x and y training data
+model = RandomForestRegressor(n_estimators = 2000, max_depth = 150, random_state = 101)
+
+# Use ``.ravel()'' method to convert dataframe to to 1 dimensional array to fit machine learning model
+model.fit(X_train, y_train.values.ravel())
+
+# Make a prediction 
+y1_pred = model.predict(X_test)
+
+# Enusre that y1_pred is not in scientific notation
+pd.set_option('display.float_format', lambda x: '%.3f' % x)
+
+result_regression = X_test
+result_regression['sold_price'] = y_test
+result_regression['y1_pred'] = y1_pred.tolist()
+result_regression.sample(5)
+
+# Score the y test data vs the predicted data
+r2 = r2_score(y_test, y1_pred)
+r2
+print('R-squared scores:', round(r2, 3))
+
+```
+
 ## Machine Learning Analysis & Results
 The Random Forest Regression was passed 48 features for our X (independent) variable such as bed/bath count and days on the market and the Sold Price for our y (dependent) variable. We felt that the number of features were appropriate given the size of the original datasets were larger. The n value we choose for the forest was 50 with a random state of 101 to which provided us with enough trees and shuffling to predict a high R2 score of ~84%.
 
 
-# TRANSFORM
+# Transform
 ### General clean up
   * ``str.lower()`` to convert all strings to lowercase
   * Rename columns to eliminate spaces and capitalization
@@ -149,7 +191,11 @@ df = df.rename(columns={0: 'health_level_dead', 1: 'health_level_fair', 2: 'heal
 ### NYC Subway Stations Dataset
 
 * Use``pd.get_dummies`` to generate binary values for whether the subway station is ADA-Accessiblle - Yes, No, Partially
-* Ultimately, all datasets needed to share zipcode as a common column to later perform a groupby function. The dataset provide latitude and longitude values  however there was no zipcode field. The Geopy library was used to create an API to find all location descriptor, using the latitude longitude pairs.
+* Ultimately, all datasets needed to share zipcode as a common column to later perform a groupby function. The dataset provided latitude and longitude values  however there was no zipcode field. The Geopy library was used to create an API to find all location descriptors, using the latitude longitude pairs.
+  * Step 1: Establish a connection to APIs by setting up the geocoder. First import the geocoder you want to use, and initiate it.
+  * Step 2: Use Rate limiter to add some delays in between the API requests.
+  * Step 3: Create a function to retrieve information using the coordinates --> Output returns a dictionary
+  * Step 4: Use ``.apply()`` with function to isolate only zipcode
 
 ```
 # Import Libaries
@@ -174,7 +220,7 @@ df['zipcode'] = df['location'].apply(parse_zipcode)
 
 ### NYC Real Estate Dataset
 
-* To generate binary values for the bins created to represent ranges for days on market, OneHotEncoder cannot process string values directly without mapping them as integers so for to create the days on market feature, use``pd.get_dummies``. By default, pandas.get_dummies only converts string columns into one-hot representation, unless columns are specified.
+* To generate binary values for the bins created to represent ranges for days on market, OneHotEncoder cannot process string values directly without mapping them as integers so for the days on market feature, use``pd.get_dummies``. By default, pandas.get_dummies only converts string columns into one-hot representation, unless columns are specified.
 
 * Based on our selection to use a Random Forest Regression, we knew we would ultimately need one comprehensive dataframe filled with x features (inputs) used to train the model. The front end was designed to have an input option for the count of bedrooms and bathrooms and the Y output would be an estimated price. That not only informed our decision to focus our preprocessing on those columns but also use this dataset as the starting point for the future merge of all binary encoded values.
 
@@ -227,13 +273,18 @@ df["dom_ranges"] = pd.cut(df['days_on_market'], ranges, labels=bin_names)
 
 ```
 
-### Determiing Walkability - Real Estate & Subway Station Datasets
+### Determining Walkability - Real Estate & Subway Station Datasets
 * The original subway dataset provided binary encoding for ada-accessibility from the original data. To create a more interesting feature, we added a walk-score for each housing record using ``sklearn.neighbors`` which implements the k-nearest neighbors vote and finds the shortest distance which required us to compare the latitude/longitude pairs for all 30,000+ housing records against 494 Real Estate stations to find the closest station and distance in miles.
 
 * One data limitation that became apparent was that the Real Estate housing latitude/longitudes were rounded to the area's zipcode so the 'closest' train station and mileage associated was inacurrate. To keep the integrity of the data, rather than binning within 1/4 mile, 1/2 mile etc. ranges, we simply did an over 1 mile/under 1 mile and dropped any column referencing the 'closest' station.
 
 ```
 # Challenge: Find the closest train station to each housing record
+
+# Import dependencies
+import pandas as pd
+import numpy as np
+import sklearn.neighbors
 
 # Find the absolute value of each coordinate pair
 def dist(lat1, long1, lat2, long2):
@@ -291,39 +342,8 @@ housing.head()
 
 ```
 
-# Machine Learning - Random Forest Regression
-
-*  Merge all dataframes outlined above, only keeping the binary encoded values to use as features (x variables)
-*  Assign X values from the Real Estate Final table for the model & cast all as int 
-*  Assign Y value (dependent variable) from the Real Estate Final table for the model (y = sold_price)
-```
-# Run test and training of the data
-X_train, X_test, y_train, y_test = train_test_split(X1, y1, random_state = 101)
-
-# Run the Random Forest Regression and then fit it to the x and y training data
-model = RandomForestRegressor(n_estimators = 2000, max_depth = 150, random_state = 101)
-
-# Use ``.ravel()'' method to convert dataframe to to 1 dimensional array to fit machine learning model
-model.fit(X_train, y_train.values.ravel())
 
 
-# Make a prediction 
-y1_pred = model.predict(X_test)
 
-# Enusre that y1_pred is not in scientific notation
-pd.set_option('display.float_format', lambda x: '%.3f' % x)
-
-result_regression = X_test
-result_regression['sold_price'] = y_test
-result_regression['y1_pred'] = y1_pred.tolist()
-result_regression.sample(5)
-
-# Score the y test data vs the predicted data
-r2 = r2_score(y_test, y1_pred)
-r2
-print('R-squared scores:', round(r2, 3))
-
-R-SQUARED SCORES: .77
-```
 
 
